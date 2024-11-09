@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone2/constants/app_constants.dart';
+import 'package:tiktok_clone2/services/auth_service.dart';
 import 'package:tiktok_clone2/widgets/my_textfield.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -119,7 +120,12 @@ class SignupScreen extends StatelessWidget {
                   'Don\'t have an account? ',
                 ),
                 InkWell(
-                  onTap: () => print('navigating user'),
+                  onTap: () => AuthService.registerUser(
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                    username: _userNameController.text,
+
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.only(right: 25.0),
                     child: Text(
