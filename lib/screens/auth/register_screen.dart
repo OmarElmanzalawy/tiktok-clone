@@ -48,7 +48,7 @@ class SignupScreen extends StatelessWidget {
                   child: IconButton(
                     icon: Icon(Icons.add_a_photo,color: Colors.white,),
                     onPressed: (){
-
+                      AuthService.pickImage();
                     }, 
                     ),
                   decoration: BoxDecoration(
@@ -124,7 +124,7 @@ class SignupScreen extends StatelessWidget {
                     email: _emailController.text,
                     password: _passwordController.text,
                     username: _userNameController.text,
-
+                    
                   ),
                   child: Padding(
                     padding: const EdgeInsets.only(right: 25.0),

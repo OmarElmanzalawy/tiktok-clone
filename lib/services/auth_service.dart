@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:tiktok_clone2/models/user.dart';
 
@@ -19,7 +18,7 @@ class AuthService  {
     return downloadUrl;
   }
 
-  void pickImage()async{
+  static void pickImage()async{
     final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
     if(pickedImage !=null){
       //Display snackbar

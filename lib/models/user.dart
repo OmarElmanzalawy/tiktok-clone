@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User {
+class UserModel {
   final String username;
-  final String profileUrl;
+  final String? profileUrl;
   final String email;
   final String uid;
 
-  User(
+  UserModel(
       {required this.email,
-      required this.profileUrl,
+      this.profileUrl,
       required this.uid,
       required this.username});
 
@@ -19,9 +19,9 @@ class User {
         'uid': uid
       };
 
-  factory User.fromSnap(DocumentSnapshot snap) {
+  factory UserModel.fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
-    return User(
+    return UserModel(
         email: snapshot['email'],
         profileUrl: snapshot['profilephoto'],
         uid: snapshot['uid'],
