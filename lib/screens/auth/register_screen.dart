@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone2/constants/app_constants.dart';
+import 'package:tiktok_clone2/providers/profile_image_provider.dart';
 import 'package:tiktok_clone2/services/auth_service.dart';
 import 'package:tiktok_clone2/widgets/my_textfield.dart';
 
-class SignupScreen extends StatelessWidget {
+class SignupScreen extends ConsumerWidget {
   SignupScreen({super.key});
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    final profilePhoto = ref.watch(profilePictureProvider); 
     final Size size = MediaQuery.sizeOf(context);
     return Scaffold(
       body: Container(
@@ -20,7 +23,7 @@ class SignupScreen extends StatelessWidget {
             'Tiktok Clone',
             style: TextStyle(
               fontSize: 35,
-              color: buttonColor,
+              color: AppConstants.buttonColor,
               fontWeight: FontWeight.w900,
             ),
           ),
@@ -38,7 +41,7 @@ class SignupScreen extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 100,
-                backgroundImage: NetworkImage('https://thumbs.dreamstime.com/b/default-profile-picture-avatar-photo-placeholder-vector-illustration-default-profile-picture-avatar-photo-placeholder-vector-189495158.jpg'),
+                backgroundImage:  profilePhoto !=null ? FileImage(profilePhoto!) : NetworkImage('https://thumbs.dreamstime.com/b/default-profile-picture-avatar-photo-placeholder-vector-illustration-default-profile-picture-avatar-photo-placeholder-vector-189495158.jpg'),
               ),
               Positioned(
                 //top: 150,
@@ -48,7 +51,7 @@ class SignupScreen extends StatelessWidget {
                   child: IconButton(
                     icon: Icon(Icons.add_a_photo,color: Colors.white,),
                     onPressed: (){
-                      AuthService.pickImage();
+                      ref.read(profilePictureProvider.notifier).pickImage();
                     }, 
                     ),
                   decoration: BoxDecoration(
@@ -89,6 +92,7 @@ class SignupScreen extends StatelessWidget {
               controller: _passwordController,
               labelText: 'Password',
               icon: Icons.lock,
+              isObscure: true,
             ),
           ),
           SizedBox(
@@ -99,14 +103,21 @@ class SignupScreen extends StatelessWidget {
             width: size.width - 40,
             height: 50,
             decoration: BoxDecoration(
-                color: buttonColor, borderRadius: BorderRadius.circular(5)),
+                color: AppConstants.buttonColor, borderRadius: BorderRadius.circular(5)),
             child: InkWell(
                 onTap: () {
-                  print('Clicked');
+                  print('register');
+                  AuthService.registerUser(
+                    email: _emailController.text,
+                    password: _passwordController.text,
+                    username: _userNameController.text,
+                    image: profilePhoto,
+                  );
+                  profilePhoto != null ? print(profilePhoto.exists()) : null;
                 },
                 child: const Center(
                     child: Text(
-                  'Login',
+                  'Register',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -117,20 +128,17 @@ class SignupScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
-                  'Don\'t have an account? ',
+                  'Already Have an account?  ',
                 ),
                 InkWell(
-                  onTap: () => AuthService.registerUser(
-                    email: _emailController.text,
-                    password: _passwordController.text,
-                    username: _userNameController.text,
-                    
-                  ),
+                  onTap: (){
+                    Navigator.pushNamed(context, '/login');
+                  },
                   child: Padding(
                     padding: const EdgeInsets.only(right: 25.0),
                     child: Text(
-                      'Register',
-                      style: TextStyle(color: buttonColor),
+                      'Login',
+                      style: TextStyle(color: AppConstants.buttonColor),
                     ),
                   ),
                 )

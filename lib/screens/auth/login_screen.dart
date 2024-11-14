@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone2/constants/app_constants.dart';
+import 'package:tiktok_clone2/services/auth_service.dart';
 import 'package:tiktok_clone2/widgets/my_textfield.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -19,7 +20,7 @@ class LoginScreen extends StatelessWidget {
             'Tiktok Clone',
             style: TextStyle(
               fontSize: 35,
-              color: buttonColor,
+              color: AppConstants.buttonColor,
               fontWeight: FontWeight.w900,
             ),
           ),
@@ -53,6 +54,7 @@ class LoginScreen extends StatelessWidget {
               controller: _passwordController,
               labelText: 'Password',
               icon: Icons.lock,
+              isObscure: true,
             ),
           ),
           Padding(
@@ -64,12 +66,12 @@ class LoginScreen extends StatelessWidget {
                   'Don\'t have an account?',
                 ),
                 InkWell(
-                  onTap: () => print('navigating user'),
+                  onTap: () => Navigator.pushNamed(context, '/signup'),
                   child: Padding(
                     padding: const EdgeInsets.only(right: 25.0),
                     child: Text(
                       'Register',
-                      style: TextStyle(color: buttonColor),
+                      style: TextStyle(color: AppConstants.buttonColor),
                     ),
                   ),
                 )
@@ -84,10 +86,10 @@ class LoginScreen extends StatelessWidget {
             width: size.width - 40,
             height: 50,
             decoration: BoxDecoration(
-                color: buttonColor, borderRadius: BorderRadius.circular(5)),
+                color: AppConstants.buttonColor, borderRadius: BorderRadius.circular(5)),
             child: InkWell(
                 onTap: () {
-                  print('Clicked');
+                  AuthService.loginUser(email: _emailController.text, password: _passwordController.text, context: context);
                 },
                 child: const Center(
                     child: Text(

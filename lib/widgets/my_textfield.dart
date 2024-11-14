@@ -20,11 +20,11 @@ class MyTextField extends StatelessWidget {
         labelStyle: const TextStyle( fontSize:  20,),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
-          borderSide: const BorderSide(color: borderColor)
+          borderSide: const BorderSide(color: AppConstants.borderColor)
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(5),
-          borderSide: const BorderSide(color: borderColor)
+          borderSide: const BorderSide(color: AppConstants.borderColor)
         ),
       ),
       obscureText:  isObscure,
