@@ -3,8 +3,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone2/firebase_options.dart';
+import 'package:tiktok_clone2/screens/add_video_screen.dart';
 import 'package:tiktok_clone2/screens/auth/login_screen.dart';
 import 'package:tiktok_clone2/screens/auth/register_screen.dart';
+import 'package:tiktok_clone2/screens/confirm_video_screen.dart';
 import 'package:tiktok_clone2/screens/home_screen.dart';
 import 'package:tiktok_clone2/services/init_getit.dart';
 
@@ -44,6 +46,7 @@ class MainApp extends StatelessWidget {
         '/signup': (context) => SignupScreen(),
         '/login': (context) => LoginScreen(),
         '/home': (context) => HomeScreen(),
+        '/addvideo': (context) => AddVideoScreen(),
       },
       
     );

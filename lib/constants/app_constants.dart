@@ -1,12 +1,13 @@
 
 import 'package:flutter/material.dart';
+import 'package:tiktok_clone2/screens/add_video_screen.dart';
 import 'package:tiktok_clone2/screens/home_screen.dart';
 class AppConstants {
   
   static Map<int,Widget> pages ={
     0: Text('Home Screen'),
     1: Text('Search Screen'),
-    2: Text('Create Screen'),
+    2: AddVideoScreen(),
     3: Text('Messages Screen'),
     4: Text('Profile Screen'),
   };
