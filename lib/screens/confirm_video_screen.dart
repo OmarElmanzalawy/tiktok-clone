@@ -3,6 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone2/constants/app_constants.dart';
+import 'package:tiktok_clone2/providers/video_picker_provider.dart';
+import 'package:tiktok_clone2/services/init_getit.dart';
+import 'package:tiktok_clone2/services/navigation_service.dart';
+import 'package:tiktok_clone2/services/upload_video_service.dart';
 import 'package:tiktok_clone2/widgets/my_textfield.dart';
 import 'package:video_player/video_player.dart';
 
@@ -75,7 +79,12 @@ class _ConfirmVideoScreenState extends ConsumerState<ConfirmVideoScreen> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 25.0),
-            child: ElevatedButton(onPressed: (){}, 
+            child: ElevatedButton(onPressed: ()async{
+              await UploadVideoService.uploadvideo(songController.text, captionController.text, widget.videoPath);
+              //getIt<NavigationService>().showSnackbar(text: 'Video Uploaded Successfully', context: context) : getIt<NavigationService>().showSnackbar(text: 'Error Occured', context: context);
+              Navigator.pop(context);
+
+            }, 
             style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(AppConstants.buttonColor) ),
             child: Text('Share!',style: TextStyle(fontSize: 20,color: Colors.white),)),
           )
