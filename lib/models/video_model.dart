@@ -53,7 +53,7 @@ return VideoModel(
   likes: snapshot['likes'] ?? [],
   profilePhoto: snapshot['profilephoto'],
   shareCount: snapshot['sharecount'],
-  songName: snapshot['songname'] ?? '',
+  songName: snapshot['songname'],
   thumbnail: snapshot['thumbnail'],
   videoUrl: snapshot['videourl'],
 );

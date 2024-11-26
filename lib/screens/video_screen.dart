@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tiktok_clone2/providers/videos_provider.dart';
+import 'package:tiktok_clone2/providers/videos_stream_provider.dart';
+import 'package:tiktok_clone2/services/video_service.dart';
 import 'package:tiktok_clone2/widgets/circle_animation.dart';
 import 'package:tiktok_clone2/widgets/error_widget.dart';
 import 'package:tiktok_clone2/widgets/music_album.dart';
@@ -37,12 +39,13 @@ class VideoScreen extends ConsumerWidget {
     );
   }
 
-  
+  bool isVideoLiked = false;
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final retryAttempt = ref.watch(retryAttemptProvider);
     final videoStream = ref.watch(videosStreamProvider(retryAttempt));
+
     // print('DATA:\n');
     // print(videoStream.hasValue);
     // print(videoStream.value![0].caption.toString());
@@ -54,11 +57,12 @@ class VideoScreen extends ConsumerWidget {
     // print(videoStream.value![0].songName.toString());
     // print(videoStream.value![0].thumbnail.toString());
     // print('--------------------\n');
-    
+
     final size = MediaQuery.sizeOf(context);
     return Scaffold(
         body: videoStream.when(
-          data: (videosList) => PageView.builder(
+          data: (videosList) => 
+              PageView.builder(
               scrollDirection: Axis.vertical,
               itemCount: videosList.length,
               controller: pageController,
@@ -67,6 +71,7 @@ class VideoScreen extends ConsumerWidget {
                   children: [
                     VideoPlayerItem(
                       videoUrl: videosList[index].videoUrl,
+                      videoId: videosList[index].id,
                     ),
                     Column(
                       children: [
@@ -139,7 +144,7 @@ class VideoScreen extends ConsumerWidget {
                                     children: [
                                       InkWell(
                                         child: Icon(
-                                          Icons.favorite,size: 40,color: Colors.red,
+                                          Icons.favorite,size: 40,color: videosList[index].likes.contains(FirebaseAuth.instance.currentUser!.uid) ? Colors.red : Colors.white,
                                           ),
                                           ),
                                           const SizedBox(height: 7,),

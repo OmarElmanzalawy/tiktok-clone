@@ -28,8 +28,10 @@ class _CircleAnimationState extends State<CircleAnimation> with SingleTickerProv
   @override
   void dispose() {
     // TODO: implement dispose
+    _controller.stop();
     super.dispose();
-    //_controller.dispose();
+    _controller.dispose();
+    print('Disposed');
   }
 
   @override

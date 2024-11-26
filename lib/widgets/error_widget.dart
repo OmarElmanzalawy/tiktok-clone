@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone2/constants/app_constants.dart';
-import 'package:tiktok_clone2/providers/videos_provider.dart';
+import 'package:tiktok_clone2/providers/videos_stream_provider.dart';
 
 class MyErrorWidget extends ConsumerWidget {
   const MyErrorWidget({super.key});
