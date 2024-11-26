@@ -45,15 +45,15 @@ class VideoModel {
 factory VideoModel.fromSnap(DocumentSnapshot snap){
 Map<String,dynamic> snapshot = snap.data() as Map<String, dynamic>;
 return VideoModel(
-  username: snapshot['username'],
-  caption: snapshot['caption'],
-  commentCount: snapshot['commentcount'],
+  username: snapshot['username'] ?? '',
+  caption: snapshot['caption'] ?? '',
+  commentCount: snapshot['commentcount'] ?? 0,
   id: snapshot['id'],
   uid: snapshot['uid'],
-  likes: snapshot['likes'],
+  likes: snapshot['likes'] ?? [],
   profilePhoto: snapshot['profilephoto'],
   shareCount: snapshot['sharecount'],
-  songName: snapshot['songname'],
+  songName: snapshot['songname'] ?? '',
   thumbnail: snapshot['thumbnail'],
   videoUrl: snapshot['videourl'],
 );

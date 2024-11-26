@@ -29,7 +29,7 @@ class _CircleAnimationState extends State<CircleAnimation> with SingleTickerProv
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    _controller.dispose();
+    //_controller.dispose();
   }
 
   @override
