@@ -21,6 +21,7 @@ void main() async{
   print('Firebase Initialized');
   //For debugging only untill logout is implemented
   //await FirebaseAuth.instance.signOut();
+  //print('CURRENT USER ID: ${FirebaseAuth.instance.currentUser!.uid}');
   runApp(ProviderScope(child: const MainApp()));
 }
 

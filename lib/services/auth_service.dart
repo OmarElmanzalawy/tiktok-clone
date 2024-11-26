@@ -21,7 +21,7 @@ class AuthService  {
 
 
 
-  static void registerUser({required String username,required String email,required String password, File? image })async{
+  static Future<void> registerUser({required String username,required String email,required String password, File? image })async{
     try{
       if(username.isNotEmpty && email.isNotEmpty && password.isNotEmpty){
     UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);

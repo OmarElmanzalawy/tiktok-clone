@@ -8,5 +8,5 @@ void setupLocator(){
   getIt.registerLazySingleton(()=> AuthService());
   //getIt.registerLazySingleton(()=> StorageService());
   getIt.registerLazySingleton(()=> NavigationService());
-
+  
 }

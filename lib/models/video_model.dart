@@ -11,7 +11,7 @@ class VideoModel {
   String caption;
   String videoUrl;
   String thumbnail;
-  String profilePhoto;
+  String? profilePhoto;
 
   VideoModel({
     required this.username,
@@ -19,7 +19,7 @@ class VideoModel {
     required this.commentCount,
     required this.id,
     required this.likes,
-    required this.profilePhoto,
+    this.profilePhoto,
     required this.shareCount,
     required this.songName,
     required this.thumbnail,

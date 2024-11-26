@@ -41,7 +41,6 @@ class UploadVideoService {
       return downloadUrl;
     }
 
-    try{
       String uid = FirebaseAuth.instance.currentUser!.uid;
       DocumentSnapshot userDoc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
       var allDocs = await FirebaseFirestore.instance.collection('videos').get();
@@ -50,13 +49,13 @@ class UploadVideoService {
       String thumbnail = await _uploadThumbnailToStorage("Video $len", videoPath);
 
       VideoModel video = VideoModel(
-        username: (userDoc.data()! as Map<String,dynamic>)['name'],
+        username: (userDoc.data()! as Map<String,dynamic>)['username'],
         uid: uid,
         id: "Video $len",
         likes: [],
         commentCount: 0,
         shareCount: 0,
-        profilePhoto: (userDoc.data()! as Map<String,dynamic>)['profilephoto'],
+        profilePhoto: (userDoc.data() as Map<String,dynamic>)['profilephoto'],
         songName: songName,
         caption: caption,
         videoUrl: videoUrl,
@@ -67,10 +66,5 @@ class UploadVideoService {
       );
       //return true;
     }
-    catch(e){
-      print(e.toString());
-      //return false;
-    }
-  }
 
-}
+  }

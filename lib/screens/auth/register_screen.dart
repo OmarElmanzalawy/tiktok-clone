@@ -105,9 +105,9 @@ class SignupScreen extends ConsumerWidget {
             decoration: BoxDecoration(
                 color: AppConstants.buttonColor, borderRadius: BorderRadius.circular(5)),
             child: InkWell(
-                onTap: () {
+                onTap: () async{
                   print('register');
-                  AuthService.registerUser(
+                  await AuthService.registerUser(
                     email: _emailController.text,
                     password: _passwordController.text,
                     username: _userNameController.text,
