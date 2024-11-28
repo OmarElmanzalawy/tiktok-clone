@@ -25,22 +25,4 @@ class VideoService {
     }
   }
 
-  static Future<bool> isLiked(String id)async{
-
-    DocumentSnapshot doc = await FirebaseFirestore.instance.collection('videos').doc(id).get();
-    var uid = FirebaseAuth.instance.currentUser!.uid;
-
-    if((doc.data() as dynamic)['likes'].contains(uid)){
-
-     return true;
-
-    }
-    else{
-
-      return false;
-
-    }
-
-  }
-
 }
