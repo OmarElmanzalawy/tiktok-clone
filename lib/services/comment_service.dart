@@ -47,4 +47,20 @@ class CommentService {
     }
   }
 
+  static Future<void> likeComment(String id)async{
+    var uid = FirebaseAuth.instance.currentUser!.uid;
+    DocumentSnapshot doc = await FirebaseFirestore.instance.collection('videos').doc(_postId).collection('Comments').doc(id).get();
+
+    if((doc.data()! as dynamic)['likes'].contains(uid)){
+      FirebaseFirestore.instance.collection('videos').doc(_postId).collection('Comments').doc(id).update({
+        'likes': FieldValue.arrayRemove([uid])
+      });
+    }
+    else{
+      FirebaseFirestore.instance.collection('videos').doc(_postId).collection('Comments').doc(id).update({
+        'likes': FieldValue.arrayUnion([uid])
+      });
+    }
+  }
+
 }

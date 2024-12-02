@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone2/models/comment_model.dart';
+import 'package:tiktok_clone2/services/comment_service.dart';
+import 'package:tiktok_clone2/services/navigation_service.dart';
 import 'package:timeago/timeago.dart' as tago;
 
 class CommentWidget extends StatelessWidget {
@@ -33,8 +36,12 @@ class CommentWidget extends StatelessWidget {
                     
                   ],
                 ),
-                trailing: IconButton(onPressed: (){}, 
-                icon: Icon(Icons.favorite_outline,color: Colors.red,size: 25,)
+                trailing: IconButton(onPressed: ()async{
+                  await CommentService.likeComment(commentModel.id);
+                }, 
+                icon: commentModel.likes.contains(FirebaseAuth.instance.currentUser!.uid) ?  
+                Icon(Icons.favorite, color: Colors.red,) 
+                : Icon(Icons.favorite_outline,color: Colors.white,size: 25,)
                 ),
                 );;
   }
