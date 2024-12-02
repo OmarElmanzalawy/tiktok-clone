@@ -159,7 +159,7 @@ class VideoScreen extends ConsumerWidget {
                                     onTap: () async{
                                       await getIt<NavigationService>()
                                           .showBottomSheet(
-                                              CommentsDialog(), context);
+                                              CommentsDialog(id: videosList[index].id,), context);
                                     },
                                     child: Icon(
                                       Icons.comment,

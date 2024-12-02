@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:tiktok_clone2/widgets/comment.dart';
+import 'package:tiktok_clone2/widgets/comment_widget.dart';
 
 class CommentModel {
 
@@ -7,7 +7,7 @@ class CommentModel {
   String comment;
   final datePublished;
   List likes;
-  String profilePhoto;
+  String? profilePhoto;
   String uid;
   String id;
 
@@ -17,7 +17,7 @@ class CommentModel {
     required this.datePublished,
     required this.id,
     required this.likes,
-    required this.profilePhoto,
+    this.profilePhoto,
     required this.uid,
   });
 

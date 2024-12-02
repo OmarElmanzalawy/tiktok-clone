@@ -24,5 +24,4 @@ class VideoService {
       ).then((_)=> print('Like Added')).catchError((error)=> throw error);
     }
   }
-
 }
