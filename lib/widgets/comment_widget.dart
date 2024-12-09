@@ -41,7 +41,7 @@ class CommentWidget extends StatelessWidget {
                 }, 
                 icon: commentModel.likes.contains(FirebaseAuth.instance.currentUser!.uid) ?  
                 Icon(Icons.favorite, color: Colors.red,) 
-                : Icon(Icons.favorite_outline,color: Colors.white,size: 25,)
+                : Icon(Icons.favorite_outline,color: Colors.white,size: 25,),
                 ),
                 );;
   }
