@@ -1,7 +1,9 @@
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone2/screens/add_video_screen.dart';
 import 'package:tiktok_clone2/screens/home_screen.dart';
+import 'package:tiktok_clone2/screens/profile_screen.dart';
 import 'package:tiktok_clone2/screens/search_screen.dart';
 import 'package:tiktok_clone2/screens/video_screen.dart';
 class AppConstants {
@@ -11,7 +13,7 @@ class AppConstants {
     1: SearchScreen(),
     2: AddVideoScreen(),
     3: Text('Messages Screen'),
-    4: Text('Profile Screen'),
+    4: ProfileScreen(uid: FirebaseAuth.instance.currentUser!.uid,),
   };
 
 // COLORS

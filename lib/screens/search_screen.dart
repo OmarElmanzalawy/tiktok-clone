@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone2/constants/app_constants.dart';
 import 'package:tiktok_clone2/models/user.dart';
+import 'package:tiktok_clone2/services/init_getit.dart';
+import 'package:tiktok_clone2/services/navigation_service.dart';
 import 'package:tiktok_clone2/services/search_service.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -40,7 +42,10 @@ class _SearchScreenState extends State<SearchScreen> {
         itemBuilder: (context,index){
           UserModel user = searchedUsers[index];
           return InkWell(
-            onTap: (){},
+            onTap: (){
+              Navigator.pushNamed(context, '/profile',arguments: user.uid);
+              
+            },
             child: ListTile(
               leading:   CircleAvatar(backgroundImage: user.profileUrl == null ? const NetworkImage('https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg') :NetworkImage(user.profileUrl!),),
               title: Text(user.username, style: const TextStyle(fontSize: 18,color: Colors.white),),

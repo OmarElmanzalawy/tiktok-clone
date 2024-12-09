@@ -8,6 +8,7 @@ import 'package:tiktok_clone2/screens/auth/login_screen.dart';
 import 'package:tiktok_clone2/screens/auth/register_screen.dart';
 import 'package:tiktok_clone2/screens/confirm_video_screen.dart';
 import 'package:tiktok_clone2/screens/home_screen.dart';
+import 'package:tiktok_clone2/screens/profile_screen.dart';
 import 'package:tiktok_clone2/services/init_getit.dart';
 
 void main() async{
@@ -48,6 +49,7 @@ class MainApp extends StatelessWidget {
         '/login': (context) => LoginScreen(),
         '/home': (context) => HomeScreen(),
         '/addvideo': (context) => AddVideoScreen(),
+        '/profile' : (context) => ProfileScreen(uid: FirebaseAuth.instance.currentUser!.uid)
       },
       
     );
