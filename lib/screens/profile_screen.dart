@@ -1,41 +1,49 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tiktok_clone2/constants/app_constants.dart';
+import 'package:tiktok_clone2/providers/profile_user_provider.dart';
 import 'package:tiktok_clone2/services/profile_service.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends ConsumerWidget {
   final String uid;
   ProfileScreen({super.key, required this.uid});
-
-  @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
 
   final ProfileService _profileService = ProfileService();
 
   @override
-  void initState() {
-    super.initState();
-    print('Profile Screen uid: ${widget.uid}');
-    _profileService.updateUserId(widget.uid);
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    final profileState = ref.watch(profileProvider(uid));
+    print('Fetching profile for uid: $uid');
+    // print(profileState.value.toString());
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.black12,
-          leading: const Icon(Icons.person_add_alt_1_outlined),
-          actions: const [Icon(Icons.more_horiz)],
-          title: Text(
-            _profileService.user['username'],
-            style: const TextStyle(
-                fontWeight: FontWeight.bold, color: Colors.white),
-          ),
-          centerTitle: true,
-        ),
-        body: Column(
+        // appBar: AppBar(
+        //   backgroundColor: Colors.black12,
+        //   leading: const Icon(Icons.person_add_alt_1_outlined),
+        //   actions: const [Icon(Icons.more_horiz)],
+        //   title: Text(
+        //     _profileService.user['username'],
+        //     style: const TextStyle(
+        //         fontWeight: FontWeight.bold, color: Colors.white),
+        //   ),
+        //   centerTitle: true,
+        // ),
+        body: profileState.when(
+        
+        loading: () {
+           return const Center(
+            child: CircularProgressIndicator.adaptive(),
+          );
+        },
+
+        error: (error, stackTrace) {
+          const Center(
+            child: Text('Couldn\'t load profile.Try again later',style: TextStyle(color: Colors.white),)
+          );
+        },
+
+        data: (data) {
+          return Column(
           children: [
             Column(
               children: [
@@ -44,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     ClipOval(
                       child: CachedNetworkImage(
-                        imageUrl: '',
+                        imageUrl: data['profilephoto'] ?? AppConstants.defaultProfileImage,
                         fit: BoxFit.cover,
                         width: 100,
                         height: 100,
@@ -137,6 +145,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ],
             )
           ],
-        ));
+        );
+        },
+
+        ) );
   }
 }

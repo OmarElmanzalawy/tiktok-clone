@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:tiktok_clone2/constants/app_constants.dart';
 import 'package:tiktok_clone2/models/comment_model.dart';
 import 'package:tiktok_clone2/services/comment_service.dart';
 import 'package:tiktok_clone2/services/navigation_service.dart';
@@ -16,6 +18,7 @@ class CommentWidget extends StatelessWidget {
     return ListTile(
                   leading: CircleAvatar(
                     backgroundColor: Colors.red,
+                    backgroundImage: NetworkImage(commentModel.profilePhoto ?? AppConstants.defaultProfileImage ),
                     //backgroundImage: N,
                   ),
                 title: Row(

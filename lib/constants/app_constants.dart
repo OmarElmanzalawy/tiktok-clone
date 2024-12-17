@@ -16,6 +16,8 @@ class AppConstants {
     4: ProfileScreen(uid: FirebaseAuth.instance.currentUser!.uid,),
   };
 
+ static const String defaultProfileImage = 'https://e7.pngegg.com/pngimages/981/645/png-clipart-default-profile-united-states-computer-icons-desktop-free-high-quality-person-icon-miscellaneous-silhouette.png';
+
 // COLORS
 static const backgroundColor = Colors.black;
 static final buttonColor = Colors.red[400];

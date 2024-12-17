@@ -37,7 +37,7 @@ class VideoModel {
     'likes': this.likes,
     'profilephoto': this.profilePhoto,
     'sharecount': this.shareCount,
-    'songname': this.shareCount,
+    'songname': this.songName,
     'thumbnail': this.thumbnail,
     'videourl': this.videoUrl,
   };

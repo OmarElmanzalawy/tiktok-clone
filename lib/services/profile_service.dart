@@ -7,12 +7,13 @@ class ProfileService {
   
   String _uid = "";
 
-   Future<void> updateUserId(String uid)async{
+   Future<Map<String,dynamic>?> updateUserId(String uid)async{
     _uid = uid;
-    await getUserData();
+    final user = await getUserData();
+    return user;
   }
 
-   getUserData()async{
+   Future<Map<String,dynamic>?> getUserData()async{
     List<String> thumbnails = [];
     var myVideos = await FirebaseFirestore.instance.collection('videos')
                              .where('uid',isEqualTo: _uid).get();
@@ -35,23 +36,31 @@ class ProfileService {
     likes += (doc.data()['likes'] as List).length; 
   }
 
-  var followerDoc = await FirebaseFirestore.instance.collection('user').doc(_uid)
-                          .collection('followers').get();
+  var followerDoc = await FirebaseFirestore.instance.collection('users').doc(_uid)
+                          .collection('followers').get().catchError((e){
+    print('Couldn\'t fetch followers document');
+  });;
   
-  var followingDoc = await FirebaseFirestore.instance.collection('user').doc(_uid)
-                          .collection('following').get();
+  var followingDoc = await FirebaseFirestore.instance.collection('users').doc(_uid)
+                          .collection('following').get().catchError((e){
+    print('Couldn\'t fetch following document');
+  });;
 
   followers = followerDoc.docs.length;
   following = followingDoc.docs.length;
 
-  FirebaseFirestore.instance.collection('users').doc(_uid).collection('followers').doc(FirebaseAuth.instance.currentUser!.uid).get().then((value){
+  await FirebaseFirestore.instance.collection('users').doc(_uid).collection('followers').doc(FirebaseAuth.instance.currentUser!.uid).get().then((value){
     if(value.exists){
       isFollowing = true;
     }
     else{ 
       isFollowing = false;
     }
+  }).catchError((e){
+    print('Couldn\'t fetch followers document');
   });
+
+  print('USER: $user');
 
   user = {
     'followers': followers.toString(),
@@ -62,7 +71,6 @@ class ProfileService {
     'username': name,
     'thumbnails': thumbnails
   };
-
+  return user;
+    }
   }
-
-}
