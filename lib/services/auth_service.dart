@@ -43,7 +43,7 @@ class AuthService  {
     try{
       if(email.isNotEmpty && password.isNotEmpty){
         await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-        Navigator.pushNamed(context,'/home');
+        Navigator.pushReplacementNamed(context,'/home');
         print('Login Success');
       }
       else{
@@ -55,6 +55,10 @@ class AuthService  {
       //Display snackbar
       print('Error: ${e.toString()}');
     }
+  }
+
+  static Future<void> signOut() async{
+    await FirebaseAuth.instance.signOut();
   }
 
 }

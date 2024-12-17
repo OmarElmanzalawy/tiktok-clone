@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok_clone2/services/profile_service.dart';
 
-final profileProvider = StateNotifierProvider.family<ProfileNotifier, AsyncValue<Map<String, dynamic>>, String>((ref, uid) {
+final profileProvider = StateNotifierProvider.autoDispose.family<ProfileNotifier, AsyncValue<Map<String, dynamic>>, String>((ref, uid) {
   return ProfileNotifier(uid);
 });
 

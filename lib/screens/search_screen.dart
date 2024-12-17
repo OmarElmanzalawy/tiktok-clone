@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok_clone2/constants/app_constants.dart';
 import 'package:tiktok_clone2/models/user.dart';
+import 'package:tiktok_clone2/screens/profile_screen.dart';
 import 'package:tiktok_clone2/services/init_getit.dart';
 import 'package:tiktok_clone2/services/navigation_service.dart';
 import 'package:tiktok_clone2/services/search_service.dart';
@@ -43,7 +44,9 @@ class _SearchScreenState extends State<SearchScreen> {
           UserModel user = searchedUsers[index];
           return InkWell(
             onTap: (){
-              Navigator.pushNamed(context, '/profile',arguments: user.uid);
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                ProfileScreen(uid: user.uid)
+              ));
               
             },
             child: ListTile(
