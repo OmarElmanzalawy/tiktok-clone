@@ -49,7 +49,7 @@ class ProfileService {
   followers = followerDoc.docs.length;
   following = followingDoc.docs.length;
 
-  await FirebaseFirestore.instance.collection('users').doc(_uid).collection('followers').doc(_uid).get().then((value){
+  await FirebaseFirestore.instance.collection('users').doc(_uid).collection('followers').doc(FirebaseAuth.instance.currentUser!.uid).get().then((value){
     if(value.exists){
       isFollowing = true;
     }
@@ -73,4 +73,35 @@ class ProfileService {
   };
   return user;
     }
+
+   Future<void> followUser()async{
+    var doc = await FirebaseFirestore.instance.collection('users')
+    .doc(_uid).collection('followers').doc(FirebaseAuth.instance.currentUser!.uid).get();
+
+    if(!doc.exists){
+      print('Already Following');
+      await FirebaseFirestore.instance.collection('users').doc(_uid).collection('followers').doc(FirebaseAuth.instance.currentUser!.uid)
+      .set({});
+
+       await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).collection('following').doc(_uid)
+      .set({});
+      //Increase followers by 1
+      user.update('followers', (value) => (int.parse(value) + 1).toString());
+    }
+    else{
+      print('Not Following');
+      await FirebaseFirestore.instance.collection('users').doc(_uid).collection('followers').doc(FirebaseAuth.instance.currentUser!.uid)
+      .delete();
+
+       await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).collection('following').doc(_uid)
+      .delete();
+      //Increase followers by 1
+      user.update('followers', (value) => (int.parse(value) - 1).toString());
+
+    }
+    user.update('isfollowing', (value)=> !value);
+    
+    
+  }
+
   }

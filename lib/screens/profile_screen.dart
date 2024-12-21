@@ -14,14 +14,13 @@ class ProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final profileState = ref.watch(profileProvider(uid));
-    print('PROFILE STATE: $profileState');
+    // print('PROFILE STATE: $profileState');
     // print(profileState.value.toString());
     return Scaffold(
         appBar: profileState.hasError || profileState.isLoading
             ? null
             : AppBar(
                 backgroundColor: Colors.black12,
-                leading: const Icon(Icons.person_add_alt_1_outlined),
                 actions: const [Icon(Icons.more_horiz)],
                 title: Text(
                   profileState.value!['username'],
@@ -44,6 +43,7 @@ class ProfileScreen extends ConsumerWidget {
             ));
           },
           data: (data) {
+             uid != FirebaseAuth.instance.currentUser!.uid ?  print('Is following: ${data['isfollowing']}') : print('same user');
             return Column(
               children: [
                 Column(
@@ -151,13 +151,16 @@ class ProfileScreen extends ConsumerWidget {
                                 await AuthService.signOut();
                                 Navigator.pushReplacementNamed(context, '/login');
                               }
+                              else{
+                                await ref.read(profileProvider(uid).notifier).toggleFollowStatus();
+                              }
                             },
                             child: Text(
                               uid == FirebaseAuth.instance.currentUser!.uid 
                               ?
                               'Sign Out'
                               :
-                              data['isfollowing'] == true ? 'Following' : 'Unfollow',
+                              data['isfollowing'] == true ?  'Unfollow' : 'Follow',
                               style: const TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.bold),
                             )),

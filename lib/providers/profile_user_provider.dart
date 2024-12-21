@@ -24,4 +24,17 @@ class ProfileNotifier extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
       //throw e;
     }
   }
+
+  Future<void> toggleFollowStatus() async {
+    try {
+      // Call the followUser function from ProfileService to toggle follow status
+      await _profileService.followUser();
+      
+      // After following/unfollowing, update the state with the new user data
+      final updatedUser = await _profileService.getUserData();
+      state = AsyncValue.data(updatedUser!);
+    } catch (e,stackTrace) {
+      state = AsyncValue.error(e,stackTrace);
+    }
+  }
 }
