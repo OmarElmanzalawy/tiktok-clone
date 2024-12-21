@@ -165,9 +165,23 @@ class ProfileScreen extends ConsumerWidget {
                                   fontSize: 15, fontWeight: FontWeight.bold),
                             )),
                       ),
-                    )
+                    ),
+
                   ],
-                )
+                ),
+                GridView.builder(
+                  shrinkWrap: true,
+                  // physics: NeverScrollableScrollPhysics(),
+                  itemCount: data['thumbnails'].length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    childAspectRatio: 1,
+                    crossAxisSpacing: 5,
+                    ),
+                   itemBuilder: (context,index){
+                    String thumbnail = data['thumbnails'][index];
+                    return CachedNetworkImage(imageUrl: thumbnail,fit: BoxFit.cover,);
+                   })
               ],
             );
           },
